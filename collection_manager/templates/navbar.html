@@ -1,0 +1,208 @@
+{% load static %}
+<!-- .app-aside -->
+<aside class="app-aside app-aside-expand-md app-aside-light">
+  <!-- .aside-content -->
+  <div class="aside-content">
+    <!-- .aside-header -->
+    <header class="aside-header d-block d-md-none">
+      <!-- .btn-account -->
+      <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
+        {% comment %}<span class="user-avatar user-avatar-lg"><img src="{% static '/images/avatars/profile.jpg' %}" alt=""></span>{% endcomment %}
+        <a href="#" class="tile bg-secondary tile-circle tile-md mr-2">AAAA{{ request.user.first_name | first }}{{ request.user.last_name | first }}</a>
+        <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span>
+        <span class="account-summary">
+          <span class="account-name">{{ request.user }}</span>
+          <span class="account-description">{{ request.user.contrata | default_if_none:"Administrador" }}</span>
+        </span>
+      </button> <!-- /.btn-account -->
+      <!-- .dropdown-aside -->
+      <div id="dropdown-aside" class="dropdown-aside collapse">
+        <!-- dropdown-items -->
+        <div class="pb-3">
+          {% comment %}<a class="dropdown-item" href="user-profile.html"><span class="dropdown-icon oi oi-person"></span> Profile</a>{% endcomment %}
+          <a class="dropdown-item" href="">
+            <span class="dropdown-icon oi oi-account-logout"></span>Cerrar sesión</a>
+        </div><!-- /dropdown-items -->
+      </div><!-- /.dropdown-aside -->
+    </header><!-- /.aside-header -->
+    <!-- .aside-menu -->
+    <div class="aside-menu overflow-hidden">
+      <!-- .stacked-menu -->
+      <nav id="stacked-menu" class="stacked-menu">
+        <!-- .menu -->
+        <ul class="menu">
+          <li class="menu-header">Coleccción</li>
+          <!-- .menu-item -->
+          <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
+            <a href="" class="menu-link">
+              <span class="menu-icon fa-solid fa-rectangle-list"></span><span class="menu-text">Vinilos</span>
+            </a>
+          </li>
+          <li class="menu-header">Mantenimiento</li>
+          <!-- .menu-item -->
+          <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
+            <a href="" class="menu-link">
+              <span class="menu-icon fa-solid fa-microphone"></span><span class="menu-text">Artistas</span>
+            </a>
+          </li>
+          <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
+            <a href="" class="menu-link">
+              <span class="menu-icon fa-solid fa-record-vinyl"></span><span class="menu-text">Albumnes</span>
+            </a>
+          </li>
+          <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
+            <a href="" class="menu-link">
+              <span class="menu-icon fa-solid fa-music"></span><span class="menu-text">Géneros</span>
+            </a>
+          </li>
+
+{#          {% if request.user|has_group:"Administrador" or request.user|has_group:"Supervisor" or request.user|has_group:"Tecnico" or request.user|has_group:"Cliente" or request.user|has_group:"RA_Especial" %}#}
+{#            <li class="menu-header">Tickets</li>#}
+{#            {% if request.user|has_group:"Administrador" %}#}
+{#              <!-- .menu-item -->#}
+{#              <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">#}
+{#                <a href="{% url 'dashboard' %}" class="menu-link">#}
+{#                  <span class="menu-icon fas fa-tachometer-alt"></span><span class="menu-text">Dashboard</span></a>#}
+{#              </li>#}
+{#            {% endif %}#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-item {% if '/tickets/listar' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_tickets' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-ticket-alt"></span><span class="menu-text">Activos</span></a>#}
+{#            </li><!-- /.menu-item -->#}
+{#            {% if not request.user|has_group:"Tecnico" %}#}
+{#              <li class="menu-item {% if 'historico' in request.path %}has-active{% endif %}">#}
+{#                <a href="{% url 'listar_tickets_historico' %}" class="menu-link">#}
+{#                  <span class="menu-icon fad fa-box-check"></span><span class="menu-text">Histórico</span></a>#}
+{#              </li><!-- /.menu-item -->#}
+{#            {% endif %}#}
+{#          {% endif %}#}
+{##}
+{#          {% if request.user|has_group:"Administrador" or request.user|has_group:"Responsable_Almacen" %}#}
+{#            <li class="menu-header">Movimiento</li>#}
+{#            <li class="menu-item {% if '/movimiento/agregar' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'agregar_movimiento' %}" class="menu-link" tabindex="-1">#}
+{#                <span class="menu-icon fas fa-truck-loading"></span><span class="menu-text">Nuevo</span></a>#}
+{#            </li>#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-item {% if 'extra' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'recepcion_extra' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-person-dolly"></span><span class="menu-text">Recep. Extraordinaria</span></a>#}
+{#            </li>#}
+{#            <li class="menu-item {% if '/movimiento/listar' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_movimientos' %}" class="menu-link" tabindex="-1">#}
+{#                <span class="menu-icon fad fa-boxes"></span><span class="menu-text">Histórico</span></a>#}
+{#            </li>#}
+{#          {% endif %}#}
+{#          {% if request.user|has_group:"Administrador"  or request.user|has_group:"Responsable_Almacen" %}#}
+{#            <li class="menu-item {% if '/movimiento/masivo' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'movimiento_masivo' %}" class="menu-link" tabindex="-1">#}
+{#                <span class="menu-icon fas fa-conveyor-belt-alt"></span><span class="menu-text">Masivo</span></a>#}
+{#            </li>#}
+{#          {% endif %}#}
+{##}
+{#          {% if request.user|has_group:"Administrador" or request.user|has_group:"Responsable_Almacen" or request.user|has_group:"Cliente" %}#}
+{#            <li class="menu-header">Inventario</li>#}
+{#            {% if not request.user|has_group:"Cliente" %}#}
+{#              <!-- .menu-item -->#}
+{#              <li class="menu-item {% if 'almacen/listar' in request.path %}has-active{% endif %}">#}
+{#                <a href="{% url 'listar_almacenes' %}" class="menu-link">#}
+{#                  <span class="menu-icon fas fa-warehouse"></span><span class="menu-text">Almacenes</span></a>#}
+{#              </li><!-- /.menu-item -->#}
+{#              <!-- .menu-item -->#}
+{#            {% endif %}#}
+{#          {% endif %}#}
+{##}
+{#          {% if request.user|has_group:"Administrador" or request.user|has_group:"Cliente" %}#}
+{#            <li class="menu-item {% if 'comercio' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_comercios' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-store-alt"></span><span class="menu-text">Comercios</span></a>#}
+{#            </li><!-- /.menu-item -->#}
+{#          {% endif %}#}
+{#          {% if request.user|has_group:"Administrador" or request.user|has_group:"Responsable_Almacen" or request.user|has_group:"Cliente" %}#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-item {% if 'equipos' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_equipos' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-mobile-alt"></span><span class="menu-text">Equipos POS</span></a>#}
+{#            </li>#}
+{#          {% endif %}#}
+{#          {% if request.user|has_group:"Administrador" or request.user|has_group:"Supervisor" or request.user|has_group:"Cliente" or request.user|has_group:"RA_Especial" %}#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-header">Reportes</li>#}
+{#            <li class="menu-item {% if 'reporte/tickets' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'reporte_tickets' %}" class="menu-link">#}
+{#                <span class="menu-icon fal fa-ballot-check"></span><span class="menu-text">Tickets</span></a>#}
+{#            </li>#}
+{#            <!-- /.menu-item -->#}
+{#            {% if not request.user|has_group:"RA_Especial" %}#}
+{#              <li class="menu-item {% if 'atenciones_abiertas' in request.path %}has-active{% endif %}">#}
+{#                <a href="{% url 'atenciones_abiertas' %}" class="menu-link">#}
+{#                  <span class="menu-icon fal fa-ballot-check"></span><span class="menu-text">Atenciones Abiertas</span></a>#}
+{#              </li><!-- /.menu-item -->#}
+{#            {% endif %}#}
+{#          {% endif %}#}
+{##}
+{#          {% if request.user|has_group:"Administrador" %}#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-header">Caja Trujillo</li>#}
+{#            <li class="menu-item {% if 'log/listar' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_log' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-tasks"></span><span class="menu-text">Log Detallado</span></a>#}
+{#            </li>#}
+{#            <li class="menu-item {% if 'conciliacion' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'generar_archivo' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-handshake"></span><span class="menu-text">Archivos de conciliación</span></a>#}
+{#            </li><!-- /.menu-item -->#}
+{#            <li class="menu-item {% if 'descargar_log' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'descargar_log' %}" class="menu-link">#}
+{#                <span class="menu-icon fal fa-download"></span><span class="menu-text">Descargar Log</span></a>#}
+{#            </li><!-- /.menu-item -->#}
+{#          {% endif %}#}
+{##}
+{#          {% if request.user|has_group:"Administrador" or request.user|has_group:"Cliente" %}#}
+{#            {% if  request.user|has_group:"Cliente" %}#}
+{#              <li class="menu-header">Mantenimiento</li>#}
+{#            {% endif %}#}
+{#            <li class="menu-item {% if 'transacciones' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_transacciones' %}" class="menu-link">#}
+{#                <span class="menu-icon far fa-receipt"></span><span class="menu-text">Consulta de Movimientos</span></a>#}
+{#            </li>#}
+{#            <!--#}
+{#            <li class="menu-item {% if 'dashboard_transaccional' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'dashboard_transaccional' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-tachometer-alt"></span><span class="menu-text">Dashboard Transaccional</span></a>#}
+{#            </li>#}
+{#            -->#}
+{#          {% endif %}#}
+{##}
+{#          {% if request.user|has_group:"Administrador" %}#}
+{#            <li class="menu-header">Mantenimiento</li>#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-item {% if 'tecnico' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_tecnicos' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-user-hard-hat"></span><span class="menu-text">Técnicos</span></a>#}
+{#            </li><!-- /.menu-item -->#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-item {% if 'usuario' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'listar_users' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-user"></span><span class="menu-text">Usuarios</span></a>#}
+{#            </li><!-- /.menu-item -->#}
+{#            <!-- .menu-item -->#}
+{#            <li class="menu-header">Otros</li>#}
+{#            <li class="menu-item {% if 'ubicacion' in request.path %}has-active{% endif %}">#}
+{#              <a href="{% url 'ubicacion' %}" class="menu-link">#}
+{#                <span class="menu-icon fas fa-map-marked-alt"></span><span class="menu-text">Ubicación</span></a>#}
+{#            </li><!-- /.menu-item -->#}
+{#          {% endif %}#}
+
+        </ul><!-- /.menu -->
+      </nav><!-- /.stacked-menu -->
+    </div><!-- /.aside-menu -->
+    <!-- Skin changer -->
+    <footer class="aside-footer border-top p-2">
+      <button class="btn btn-light btn-block text-primary" data-toggle="skin">
+        <span class="d-compact-menu-none">Night mode</span>
+        <i class="fas fa-moon ml-1"></i></button>
+    </footer><!-- /Skin changer -->
+  </div><!-- /.aside-content -->
+</aside><!-- /.app-aside -->

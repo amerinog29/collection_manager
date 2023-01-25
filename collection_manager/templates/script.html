@@ -1,0 +1,40 @@
+{% load static %}
+<!-- BEGIN BASE JS -->
+<script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/vendor/bootstrap/js/popper.min.js' %}"></script>
+<script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- END BASE JS -->
+
+<!-- BEGIN PLUGINS JS -->
+<script src="{% static '/vendor/pace/pace.min.js' %}"></script>
+<script src="{% static '/vendor/stacked-menu/stacked-menu.min.js' %}"></script>
+<script src="{% static '/vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+<script src="{% static '/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/vendor/datatables/extensions/buttons/dataTables.buttons.min.js' %}"></script>
+<script src="{% static '/vendor/datatables/extensions/buttons/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static '/vendor/datatables/extensions/buttons/buttons.html5.min.js' %}"></script>
+<script src="{% static '/vendor/datatables/extensions/buttons/buttons.print.min.js' %}"></script>
+<script src="{% static '/vendor/select2/js/select2.min.js' %}"></script>
+<script src="{% static '/vendor/flatpickr/flatpickr.min.js' %}"></script>
+<!-- END PLUGINS JS -->
+
+<script src="https://kit.fontawesome.com/aa303810e4.js" crossorigin="anonymous"></script>
+
+<!-- BEGIN THEME JS -->
+<script src="{% static '/javascript/theme.min.js' %}"></script>
+<!-- END THEME JS -->
+
+<!-- BEGIN PAGE LEVEL JS -->
+<script src="{% static '/javascript/pages/dataTables.bootstrap.js' %}"></script>
+{% comment %}<script src="{% static '/javascript/pages/datatables-demo.js' %}"></script>{% endcomment %}
+<script>
+  function get_excluded_columns(filterByColumns, table) {
+    if (!Array.isArray(filterByColumns)) {
+      filterByColumns = [filterByColumns]
+    }
+    let columnsLength = table.find('tr').first().children().length
+    let arrayColumns = Array.from(Array(columnsLength), (x, i) => i)
+    return arrayColumns.filter(val => !filterByColumns.includes(val))
+  }
+</script>
+<!-- END PAGE LEVEL JS -->

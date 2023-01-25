@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- End Required meta tags -->
+
+  <!-- FAVICONS -->
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static '/apple-touch-icon.png' %}">
+  <link rel="shortcut icon" href="{% static '/favicon.ico' %}">
+  <meta name="theme-color" content="#3063A0">
+  <!-- End FAVICONS -->
+
+  <!-- BEGIN BASE STYLES -->
+  <link rel="stylesheet" href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static '/vendor/open-iconic/css/open-iconic-bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static '/vendor/fontawesome/css/all.css' %}">
+  <link rel="stylesheet" href="{% static '/vendor/datatables/extensions/buttons/buttons.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static '/vendor/select2/css/select2.min.css' %}">
+  <!-- END BASE STYLES -->
+
+  <!-- BEGIN THEME STYLES -->
+  <link rel="stylesheet" href="{% static '/stylesheets/theme.min.css' %}" data-skin="default">
+  <link rel="stylesheet" href="{% static '/stylesheets/custom.css' %}">
+  <!-- END THEME STYLES -->
+
+  <title>Telefónica - Sistema de Gestión de Agentes</title>
+
+</head>
+<body>
+{% block body %}{% endblock %}
+
+<!-- BEGIN BASE JS -->
+<script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static '/vendor/bootstrap/js/popper.min.js' %}"></script>
+<script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- END BASE JS -->
+
+<!-- PAGE PLUGINS JS -->
+<script src="{% static '/vendor/particles.js/particles.min.js' %}"></script>
+<script>
+  /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+  particlesJS.load('auth-header', '/static/javascript/particles.json');
+</script>
+<!-- PAGE PLUGINS JS -->
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- End Required meta tags -->
+
+    {% include 'css.html' %}
+    {% block extraheader %}{% endblock %}
+		<title>Telefónica - Sistema de Gestión de Agentes</title>
+	</head>
+	<body>
+    <!-- .app -->
+    <div class="app">
+      {% include 'header.html' %}
+      {% include 'navbar.html' %}
+      {% block body %}{% endblock %}
+
+    </div><!-- /.app -->
+    {% include 'script.html' %}
+    {% block extrajs %}{% endblock %}
+  </body>
+</html>
