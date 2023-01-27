@@ -41,7 +41,7 @@
           <li class="menu-header">Mantenimiento</li>
           <!-- .menu-item -->
           <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
-            <a href="" class="menu-link">
+            <a href="{% url 'artist_list' %}" class="menu-link">
               <span class="menu-icon fa-solid fa-microphone"></span><span class="menu-text">Artistas</span>
             </a>
           </li>
