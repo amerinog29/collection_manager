@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Musician(models.Model):
-	first_name = models.CharField(max_length=50)
-	last_name = models.CharField(max_length=50)
+	photo = models.ImageField(upload_to='photos')
+	name = models.CharField(max_length=150)
 	
 	
 class Album(models.Model):
