@@ -8,6 +8,8 @@ collectionpatterns = []
 musicianpatterns = [
     path('listar', artist_list, name='artist_list'),
     path('crear', create_artist, name='create_artist'),
+    path('editar/<pk>', edit_artist, name='edit_artist'),
+    path('eliminar/<pk>', delete_artist, name='delete_artist'),
 ]
 
 albumpatterns = []
