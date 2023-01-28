@@ -43,11 +43,14 @@
                 <div class="card card-fluid">
                   <!-- .card-body -->
                   <div class="card-body text-center">
+                    <div class="d-flex justify-content-end">
+                      <a href="{% url 'delete_artist' pk=art.pk %}" class="close">×</a>
+                    </div>
                     <!-- .user-avatar -->
                     <a href="#" class="user-avatar user-avatar-xxl my-3">
-                      <img src="{{ art.logo.url }}" alt="" height="80" width="80"></a> <!-- /.user-avatar -->
+                      <img src="{{ art.photo.url }}" alt="" height="80" width="80"></a> <!-- /.user-avatar -->
                     <h3 class="card-title text-truncate">
-                      <a href="user-profile.html">{{ art.name }}</a>
+                      <a href="{% url 'edit_artist' pk=art.pk %}">{{ art.name }}</a>
                     </h3>
                   </div><!-- /.card-body -->
                 </div><!-- /.card -->
