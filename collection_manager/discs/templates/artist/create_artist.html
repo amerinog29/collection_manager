@@ -14,7 +14,7 @@
                 </li>
               </ol>
             </nav>
-            <h1 class="page-title"> Agregar Artista </h1>
+            <h1 class="page-title"> {% if 'crear' in request.path %} Agregar Artista {% else %} Editar Artista: {{ artist.name }}{% endif %} </h1>
           </header><!-- /.page-title-bar -->
           <!-- .page-section -->
           <div class="page-section">
@@ -24,7 +24,9 @@
                 <h6 class="card-header"> Datos </h6><!-- .card-body -->
                 <div class="card-body">
                   <!-- form -->
-                  <form method="post" action="{% url 'create_artist' %}" enctype="multipart/form-data">
+                  <form method="post"
+                        action="{% if 'crear' in request.path %} {% url 'create_artist' %} {% else %} {% url 'edit_artist' pk=artist.pk %} {% endif %}"
+                        enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- form row -->
                     <div class="form-row">
@@ -34,8 +36,10 @@
                           <!-- avatar -->
                           <div class="user-avatar user-avatar-xl fileinput-button">
                             <div class="fileinput-button-label"> Cambiar imagen </div>
-                            <img id="avatar" src="{% static '/images/avatars/album_default.jpg' %}" alt="">
-                            <input id="fileupload-avatar" type="file" name="logo" onchange="readURL(this);">
+                            <img id="avatar"
+                                 src="{% if 'crear' in request.path %} {% static '/images/avatars/album_default.jpg' %} {% else %} {{ artist.photo.url }} {% endif %}"
+                                 alt="">
+                            <input id="fileupload-avatar" type="file" name="photo" onchange="readURL(this);">
                           </div><!-- /avatar -->
                           <!-- .media-body -->
                           <div class="media-body pl-3 justify-content-center" style="position: relative;margin-top: 5%;">
@@ -49,14 +53,16 @@
                       </div><!-- /form column -->
                       <!-- form column -->
                       <div class="col-md-8 mb-3">
-                        <label for="name">Nombre</label> <input type="text" class="form-control" id="name" name="name" required="">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ artist.name }}" required="">
                       </div><!-- /form column -->
                     </div><!-- /form row -->
                     <hr>
                     <!-- .form-actions -->
                     <div class="form-actions">
                       <!-- enable submit btn when user type their current password -->
-                      <button type="submit" class="btn btn-success"><i class="fa-solid fa-check mr-2"></i>Agregar</button>
+                      <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-check mr-2"></i>{% if 'crear' in request.path %} Agregar {% else %} Editar {% endif %}</button>
                     </div><!-- /.form-actions -->
                   </form><!-- /form -->
                 </div><!-- /.card-body -->
