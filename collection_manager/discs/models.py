@@ -9,6 +9,7 @@ class Artist(models.Model):
 	
 	
 class Album(models.Model):
+	photo = models.ImageField(upload_to='album')
 	name = models.CharField(max_length=100)
 	release_date = models.DateField()
 	artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='artist')
