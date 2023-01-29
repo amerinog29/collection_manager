@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extraheader %}
+  <style>
+    .user-avatar audio, .user-avatar canvas, .user-avatar img, .user-avatar video {
+      -o-object-fit: contain;
+      object-fit: contain;
+      -o-object-position: center;
+      object-position: center;
+      background: black;
+    }
+  </style>
+{% endblock %}
+{% block body %}
+  <main class="app-main">
+    <div class="wrapper">
+      <div class="page">
+        <div class="page-inner">
+          <!-- .page-title-bar -->
+          <header class="page-title-bar">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="#"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Vinilos</a>
+                </li>
+              </ol>
+            </nav>
+            <div class="d-flex justify-content-between">
+              <h1 class="page-title"> Géneros </h1>
+              <div class="btn-toolbar">
+                <a type="button" class="btn btn-primary" href="{% url 'create_genre' %}"><i class="fa-solid fa-plus mr-2"></i>Agregar género</a>
+              </div>
+            </div>
+          </header><!-- /.page-title-bar -->
+          <!-- .page-section -->
+          <div class="page-section">
+            <div class="card card-fluid">
+              <!-- .card-body -->
+              <div class="card-body">
+                <!-- .table-responsive -->
+                <div class="text-muted"> Showing 1 to 10 of 1,000 entries </div>
+                <div class="table-responsive">
+                  <!-- .table -->
+                  <table class="table">
+                    <!-- thead -->
+                    <thead>
+                      <tr>
+                        <th> Nombre </th>
+                        <th style="width:100px; min-width:100px;"> &nbsp; </th>
+                      </tr>
+                    </thead><!-- /thead -->
+                    <!-- tbody -->
+                    <tbody>
+                      {% for genre in genres %}
+                        <!-- tr -->
+                        <tr>
+                          <td>
+                            <a href="#">{{ genre.name }}</a>
+                          </td>
+                          <td class="align-middle text-right">
+                            <a href="{% url 'edit_genre' pk=genre.pk %}" class="btn btn-sm btn-icon btn-secondary">
+                              <i class="fa fa-pencil-alt"></i> <span class="sr-only">Editar</span>
+                            </a>
+                            <a href="{% url 'delete_genre' pk=genre.pk %}" class="btn btn-sm btn-icon btn-danger">
+                              <i class="far fa-trash-alt"></i> <span class="sr-only">Eliminar</span>
+                            </a>
+                          </td>
+                        </tr><!-- /tr -->
+                      {% endfor %}
+                    </tbody><!-- /tbody -->
+                  </table><!-- /.table -->
+                </div><!-- /.table-responsive -->
+                <!-- .pagination -->
+                <ul class="pagination justify-content-center mt-4">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1"><i class="fa fa-lg fa-angle-left"></i></a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">...</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">13</a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="#">14</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">15</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">...</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">24</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#"><i class="fa fa-lg fa-angle-right"></i></a>
+                  </li>
+                </ul><!-- /.pagination -->
+              </div><!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

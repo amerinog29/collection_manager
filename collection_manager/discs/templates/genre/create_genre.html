@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+  <main class="app-main">
+    <div class="wrapper">
+      <div class="page">
+        <div class="page-inner">
+          <!-- .page-title-bar -->
+          <header class="page-title-bar">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="{% url 'genre_list' %}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Listar Géneros</a>
+                </li>
+              </ol>
+            </nav>
+            <h1 class="page-title"> {% if 'crear' in request.path %} Agregar Género {% else %} Editar Género: {{ genre.name }}{% endif %} </h1>
+          </header><!-- /.page-title-bar -->
+          <!-- .page-section -->
+          <div class="page-section">
+            <div class="col-lg-12" style="padding-left: 0; padding-right: 0">
+              <!-- .card -->
+              <div class="card card-fluid">
+                <h6 class="card-header"> Datos </h6><!-- .card-body -->
+                <div class="card-body">
+                  <!-- form -->
+                  <form method="post"
+                        action="{% if 'crear' in request.path %} {% url 'create_genre' %} {% else %} {% url 'edit_genre' pk=genre.pk %} {% endif %}"
+                        enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- form row -->
+                    <div class="form-row">
+                      <!-- form column -->
+                      <div class="col-md-6 mb-3">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ genre.name }}" required="">
+                      </div><!-- /form column -->
+                    </div><!-- /form row -->
+                    <hr>
+                    <!-- .form-actions -->
+                    <div class="form-actions">
+                      <!-- enable submit btn when user type their current password -->
+                      <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-check mr-2"></i>{% if 'crear' in request.path %} Agregar {% else %} Editar {% endif %}</button>
+                    </div><!-- /.form-actions -->
+                  </form><!-- /form -->
+                </div><!-- /.card-body -->
+              </div><!-- /.card -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
+{% block extrajs %}
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+          $('#avatar').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+{% endblock %}
