@@ -45,9 +45,9 @@
               <span class="menu-icon fa-solid fa-microphone"></span><span class="menu-text">Artistas</span>
             </a>
           </li>
-          <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
-            <a href="" class="menu-link">
-              <span class="menu-icon fa-solid fa-record-vinyl"></span><span class="menu-text">Albumnes</span>
+          <li class="menu-item {% if '/album/' in request.path %}has-active{% endif %}">
+            <a href="{% url 'album_list' %}" class="menu-link">
+              <span class="menu-icon fa-solid fa-record-vinyl"></span><span class="menu-text">Albúm</span>
             </a>
           </li>
           <li class="menu-item {% if '/genero/' in request.path %}has-active{% endif %}">
