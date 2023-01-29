@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from .models import Artist, Genre
+from datetime import datetime as dt
+from .models import Artist, Genre, Album
 
 
 def artist_list(request):
@@ -87,6 +88,54 @@ def delete_genre(request, pk):
 	
 	except Artist.DoesNotExist:
 		return redirect('genre_list')
+
+
+def album_list(request):
+	albums = Album.objects.all()
+	context = {'albums': albums}
+	
+	return render(request, 'album/album_list.html', context)
+
+
+def create_album(request):
+	if request.method == 'POST':
+		release_date = dt.strptime(request.POST.get('release_date'), '%d/%m/%Y')
+		Album.objects.create(name=request.POST.get('name'), release_date=release_date, artist_id=request.POST.get('artist_id'))
+		
+		return redirect('album_list')
+	else:
+		artists = Artist.objects.all()
+		context = {'artists': artists}
+	
+	return render(request, 'album/create_album.html', context)
+
+
+def edit_album(request, pk):
+	if request.method == 'POST':
+		release_date = dt.strptime(request.POST.get('release_date'), '%d/%m/%Y')
+		defaults = {'name': request.POST.get('name'), 'release_date': release_date, 'artist_id': request.POST.get('artist_id')}
+		
+		Album.objects.update_or_create(pk=pk, defaults=defaults)
+		
+		return redirect('album_list')
+	
+	else:
+		album = Album.objects.get(pk=pk)
+		artists = Artist.objects.all()
+		context = {'album': album, 'artists': artists}
+	
+	return render(request, 'album/create_album.html', context)
+
+
+def delete_album(request, pk):
+	try:
+		album = Album.objects.get(pk=pk)
+		album.delete()
+		
+		return redirect('album_list')
+	
+	except Artist.DoesNotExist:
+		return redirect('album_list')
 	
 		
 		
