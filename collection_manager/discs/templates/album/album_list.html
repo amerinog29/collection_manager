@@ -47,7 +47,7 @@
                       </div>
                       <!-- .user-avatar -->
                       <a href="#" class="user-avatar user-avatar-xxl my-3">
-                        <img src="{{ album.artist.photo.url }}" alt="" height="80" width="80"></a> <!-- /.user-avatar -->
+                        <img src="{{ album.photo.url }}" alt="" height="80" width="80"></a> <!-- /.user-avatar -->
                       <h3 class="card-title text-truncate">
                         <a href="{% url 'edit_album' pk=album.pk %}">{{ album.name }}</a>
                       </h3>
