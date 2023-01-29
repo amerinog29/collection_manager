@@ -40,7 +40,7 @@
           </li>
           <li class="menu-header">Mantenimiento</li>
           <!-- .menu-item -->
-          <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
+          <li class="menu-item {% if '/artista/' in request.path %}has-active{% endif %}">
             <a href="{% url 'artist_list' %}" class="menu-link">
               <span class="menu-icon fa-solid fa-microphone"></span><span class="menu-text">Artistas</span>
             </a>
@@ -50,8 +50,8 @@
               <span class="menu-icon fa-solid fa-record-vinyl"></span><span class="menu-text">Albumnes</span>
             </a>
           </li>
-          <li class="menu-item {% if '/tickets/dashboard' in request.path %}has-active{% endif %}">
-            <a href="" class="menu-link">
+          <li class="menu-item {% if '/genero/' in request.path %}has-active{% endif %}">
+            <a href="{% url 'genre_list' %}" class="menu-link">
               <span class="menu-icon fa-solid fa-music"></span><span class="menu-text">Géneros</span>
             </a>
           </li>
