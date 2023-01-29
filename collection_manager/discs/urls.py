@@ -12,7 +12,12 @@ musicianpatterns = [
     path('eliminar/<pk>', delete_artist, name='delete_artist'),
 ]
 
-albumpatterns = []
+albumpatterns = [
+    path('listar', album_list, name='album_list'),
+    path('crear', create_album, name='create_album'),
+    path('editar/<pk>', edit_album, name='edit_album'),
+    path('eliminar/<pk>', delete_album, name='delete_album'),
+]
 
 genrepatterns = [
     path('listar', genre_list, name='genre_list'),
