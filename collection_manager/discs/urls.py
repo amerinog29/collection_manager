@@ -14,7 +14,12 @@ musicianpatterns = [
 
 albumpatterns = []
 
-genrepatterns = []
+genrepatterns = [
+    path('listar', genre_list, name='genre_list'),
+    path('crear', create_genre, name='create_genre'),
+    path('editar/<pk>', edit_genre, name='edit_genre'),
+    path('eliminar/<pk>', delete_genre, name='delete_genre'),
+]
 
 urlpatterns = [
     # path('', test, name='test'),
