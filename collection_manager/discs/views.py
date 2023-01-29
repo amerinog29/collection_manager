@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from .models import Artist
+from .models import Artist, Genre
 
 
 def artist_list(request):
@@ -46,6 +46,47 @@ def delete_artist(request, pk):
 		
 	except Artist.DoesNotExist:
 		return redirect('artist_list')
+
+
+def genre_list(request):
+	genres = Genre.objects.all()
+	context = {'genres': genres}
+	
+	return render(request, 'genre/genre_list.html', context)
+
+
+def create_genre(request):
+	if request.method == 'POST':
+		Genre.objects.create(name=request.POST.get('name'))
+		
+		return redirect('genre_list')
+	
+	return render(request, 'genre/create_genre.html')
+
+
+def edit_genre(request, pk):
+	if request.method == 'POST':
+		defaults = {'name': request.POST.get('name')}
+		
+		Genre.objects.update_or_create(pk=pk, defaults=defaults)
+		
+		return redirect('genre_list')
+	
+	else:
+		genre = Genre.objects.get(pk=pk)
+	
+	return render(request, 'genre/create_genre.html', {'genre': genre})
+
+
+def delete_genre(request, pk):
+	try:
+		genre = Genre.objects.get(pk=pk)
+		genre.delete()
+		
+		return redirect('genre_list')
+	
+	except Artist.DoesNotExist:
+		return redirect('genre_list')
 	
 		
 		
