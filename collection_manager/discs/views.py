@@ -14,7 +14,7 @@ def artist_list(request):
 
 def create_artist(request):
 	if request.method == 'POST':
-		Artist.objects.create(logo=request.FILES.get('logo'), name=request.POST.get('name'))
+		Artist.objects.create(photo=request.FILES.get('photo'), name=request.POST.get('name'))
 		
 		return redirect('artist_list')
 	
@@ -100,7 +100,7 @@ def album_list(request):
 def create_album(request):
 	if request.method == 'POST':
 		release_date = dt.strptime(request.POST.get('release_date'), '%d/%m/%Y')
-		Album.objects.create(name=request.POST.get('name'), release_date=release_date, artist_id=request.POST.get('artist_id'))
+		Album.objects.create(photo=request.FILES.get('photo'), name=request.POST.get('name'), release_date=release_date, artist_id=request.POST.get('artist_id'))
 		
 		return redirect('album_list')
 	else:
@@ -112,8 +112,14 @@ def create_album(request):
 
 def edit_album(request, pk):
 	if request.method == 'POST':
+		defaults = {}
+		if 'photo' in request.FILES:
+			defaults['photo'] = request.FILES.get('photo')
+		
 		release_date = dt.strptime(request.POST.get('release_date'), '%d/%m/%Y')
-		defaults = {'name': request.POST.get('name'), 'release_date': release_date, 'artist_id': request.POST.get('artist_id')}
+		defaults['name'] = request.POST.get('name')
+		defaults['release_date'] = release_date
+		defaults['artist_id'] = request.POST.get('artist_id')
 		
 		Album.objects.update_or_create(pk=pk, defaults=defaults)
 		
