@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extraheader %}
+  <style>
+    .user-avatar audio, .user-avatar canvas, .user-avatar img, .user-avatar video {
+      -o-object-fit: contain;
+      object-fit: contain;
+      -o-object-position: center;
+      object-position: center;
+      background: black;
+    }
+  </style>
+{% endblock %}
+{% block body %}
+  <main class="app-main">
+    <div class="wrapper">
+      <div class="page">
+        <div class="page-inner">
+          <!-- .page-title-bar -->
+          <header class="page-title-bar">
+            {% comment %}<nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                  <a href="#"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Vinilos</a>
+                </li>
+              </ol>
+            </nav>{% endcomment %}
+            <div class="d-flex justify-content-between">
+              <h1 class="page-title"> Vinilos </h1>
+              <div class="btn-toolbar">
+                <a type="button" class="btn btn-primary" href="{% url 'create_disc' %}"><i class="fa-solid fa-plus mr-2"></i>Agregar disco</a>
+              </div>
+            </div>
+          </header><!-- /.page-title-bar -->
+          <!-- .page-section -->
+          <div class="page-section">
+            <div class="masonry-layout" style="position: relative; height: 922.094px;">
+              {% for disc in discs %}
+                <!-- .masonry-item -->
+                <div class="masonry-item col-lg-2">
+                  <!-- .card -->
+                  <div class="card card-fluid">
+                    <!-- .card-body -->
+                    <div class="card-body text-center">
+                      <div class="d-flex justify-content-end">
+                        <a href="{% url 'delete_disc' pk=disc.pk %}" class="close">×</a>
+                      </div>
+                      <!-- .user-avatar -->
+                      <a href="#" class="user-avatar user-avatar-xxl my-3">
+                        <img src="{{ disc.photo.url }}" alt="" height="80" width="80"></a> <!-- /.user-avatar -->
+                      <h3 class="card-title text-truncate">
+                        <a href="{% url 'edit_disc' pk=disc.pk %}">{{ disc.name }}</a>
+                      </h3>
+                      <h6 class="card-subtitle text-muted mb-3"> {{ album.artist.name }} </h6>
+                      <p class="text-muted"> {{ disc.release_date|date:'d/m/y' }} </p>
+                    </div><!-- /.card-body -->
+                  </div><!-- /.card -->
+                </div><!-- /.masonry-item -->
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
