@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from datetime import datetime as dt
-from .models import Artist, Genre, Album
+from .models import Artist, Genre, Album, Disc, Observation
 
 
 def artist_list(request):
@@ -90,55 +90,87 @@ def delete_genre(request, pk):
 		return redirect('genre_list')
 
 
-def album_list(request):
-	albums = Album.objects.all()
-	context = {'albums': albums}
+def disc_list(request):
+	discs = Disc.objects.all()
+	context = {'discs': discs}
 	
-	return render(request, 'album/album_list.html', context)
+	return render(request, 'collection/collection_list.html', context)
 
 
-def create_album(request):
-	if request.method == 'POST':
-		release_date = dt.strptime(request.POST.get('release_date'), '%d/%m/%Y')
-		Album.objects.create(photo=request.FILES.get('photo'), name=request.POST.get('name'), release_date=release_date, artist_id=request.POST.get('artist_id'))
+def validate_data(request, action):
+	tmp_json = {}
+	
+	if 'photo' not in request.POST:
+		tmp_json['photo'] = request.FILES.get('photo')
+	
+	if request.POST.get('release_date') != '':
+		tmp_json['release_date'] = dt.strptime(request.POST.get('release_date'), '%d/%m/%Y')
+	
+	if request.POST.get('observation') != '' and action != 'edit':
+		obs_temp = Observation.objects.create(text=request.POST.get('observation'))
+		tmp_json['observation_id'] = obs_temp.pk
 		
-		return redirect('album_list')
+	return tmp_json
+
+
+def generate_json_data(request, action):
+	data = {
+		'name': request.POST.get('name'),
+		'artist_id': request.POST.get('artist_id'),
+		'country': request.POST.get('country'),
+		'genre_id': request.POST.get('genre_id')
+	}
+	
+	tmp_json = validate_data(request, action)
+	if len(tmp_json) != 0:
+		data.update(tmp_json)
+		
+	return data
+	
+
+def create_disc(request):
+	if request.method == 'POST':
+		print(request.POST)
+		data = generate_json_data(request)
+		Disc.objects.create(**data)
+	
+		return redirect('disc_list')
 	else:
 		artists = Artist.objects.all()
-		context = {'artists': artists}
+		genres = Genre.objects.all()
+		context = {'artists': artists, 'genres': genres}
 	
-	return render(request, 'album/create_album.html', context)
+	return render(request, 'collection/create_collection.html', context)
 
 
-def edit_album(request, pk):
+def edit_disc(request, pk):
 	if request.method == 'POST':
-		defaults = {}
-		if 'photo' in request.FILES:
-			defaults['photo'] = request.FILES.get('photo')
+		disc = Disc.objects.get(pk=pk)
+		if disc.observation:
+			obs = Observation.objects.get(pk=disc.observation_id)
+			obs.text = request.POST.get('observation')
+			obs.save()
 		
-		release_date = dt.strptime(request.POST.get('release_date'), '%d/%m/%Y')
-		defaults['name'] = request.POST.get('name')
-		defaults['release_date'] = release_date
-		defaults['artist_id'] = request.POST.get('artist_id')
+		defaults = generate_json_data(request, 'edit')
+		Disc.objects.update_or_create(pk=pk, defaults=defaults)
 		
-		Album.objects.update_or_create(pk=pk, defaults=defaults)
-		
-		return redirect('album_list')
+		return redirect('disc_list')
 	
 	else:
-		album = Album.objects.get(pk=pk)
+		disc = Disc.objects.get(pk=pk)
 		artists = Artist.objects.all()
-		context = {'album': album, 'artists': artists}
+		genres = Genre.objects.all()
+		context = {'disc': disc, 'artists': artists, 'genres': genres}
 	
-	return render(request, 'album/create_album.html', context)
+	return render(request, 'collection/create_collection.html', context)
 
 
-def delete_album(request, pk):
+def delete_disc(request, pk):
 	try:
-		album = Album.objects.get(pk=pk)
-		album.delete()
+		disc = Disc.objects.get(pk=pk)
+		disc.delete()
 		
-		return redirect('album_list')
+		return redirect('disc_list')
 	
 	except Artist.DoesNotExist:
 		return redirect('album_list')
