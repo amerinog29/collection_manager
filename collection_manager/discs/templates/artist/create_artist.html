@@ -37,13 +37,13 @@
                           <div class="user-avatar user-avatar-xl fileinput-button">
                             <div class="fileinput-button-label"> Cambiar imagen </div>
                             <img id="avatar"
-                                 src="{% if 'crear' in request.path %} {% static '/images/avatars/album_default.jpg' %} {% else %} {{ artist.photo.url }} {% endif %}"
+                                 src="{% if 'crear' in request.path %} {% static '/images/avatars/default_avatar.png' %} {% else %} {{ artist.photo.url }} {% endif %}"
                                  alt="">
                             <input id="fileupload-avatar" type="file" name="photo" onchange="readURL(this);">
                           </div><!-- /avatar -->
                           <!-- .media-body -->
                           <div class="media-body pl-3 justify-content-center" style="position: relative;margin-top: 5%;">
-                            <h3 class="card-title"> Logo del artista / banda </h3>
+                            <h3 class="card-title"> Foto del artista / banda </h3>
                             <h6 class="card-subtitle text-muted"> Click para cambiar la imagen. </h6>
                             <div id="progress-avatar" class="progress progress-xs fade">
                               <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
