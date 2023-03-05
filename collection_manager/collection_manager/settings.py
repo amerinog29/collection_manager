@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+from .db import GAE, LOCAL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-pdhi+=w4^9am*=*ml+$_hx^zk_l-1bcg444rr-q=+8_jvt-v^5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tinkupe.uc.r.appspot.com']
 
 
 # Application definition
@@ -74,12 +75,16 @@ WSGI_APPLICATION = 'collection_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+if os.getenv('GAE_APPLICATION', None):
+    DATABASES = GAE
+    DATABASES['default']['HOST'] = '/cloudsql/colegio-de-la-inmaculada:us-central1:reservasci'
+
+elif os.getenv('LOCAL_GAE', None):
+    DATABASES = GAE
+    DATABASES['default']['HOST'] = '35.192.51.127'
+
+else:
+    DATABASES = LOCAL
 
 
 # Password validation
@@ -117,9 +122,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-     os.path.join(BASE_DIR, "static"),
-]
+# STATICFILES_DIRS = [
+#      os.path.join(BASE_DIR, "static"),
+# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
