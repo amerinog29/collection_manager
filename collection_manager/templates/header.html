@@ -37,7 +37,7 @@
         <div class="dropdown d-flex">
           <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
-            <a href="#" class="tile bg-secondary tile-circle tile-md mr-2">{{ request.user.first_name | first }}{{ request.user.last_name | first }}</a>
+            <a href="#" class="tile bg-secondary tile-circle tile-md mr-2">{{ request.user.username | first | title }}</a>
             <span class="account-summary pr-lg-4 d-none d-lg-block">
               <span class="account-name">{{ request.user }}</span>
               <span class="account-description">
