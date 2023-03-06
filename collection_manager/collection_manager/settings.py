@@ -128,8 +128,15 @@ if 'collectstatic' in sys.argv:
 else:
     STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if os.getenv('GAE_APPLICATION', None):
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_BUCKET_NAME = 'tinkupe.appspot.com'
+    GS_DEFAULT_ACL = 'publicRead'
+    GS_FILE_OVERWRITE = True
+    MEDIA_URL = 'https://storage.googleapis.com/tinkupe.appspot.com/'
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
