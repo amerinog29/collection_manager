@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
 from .db import GAE, LOCAL
 
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-pdhi+=w4^9am*=*ml+$_hx^zk_l-1bcg444rr-q=+8_jvt-v^5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tinkupe.uc.r.appspot.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'tinkupe.uc.r.appspot.com']
 
 
 # Application definition
@@ -122,10 +123,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#      os.path.join(BASE_DIR, "static"),
-# ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+if 'collectstatic' in sys.argv:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+else:
+    STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
