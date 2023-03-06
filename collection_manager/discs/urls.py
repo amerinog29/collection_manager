@@ -32,7 +32,7 @@ genrepatterns = [
 ]
 
 urlpatterns = [
-	# path('', test, name='test'),
+	path('cerrar_sesion', sign_out, name='sign_out'),
 	path('coleccion/', include(collectionpatterns)),
 	path('artista/', include(musicianpatterns)),
 	path('album/', include(albumpatterns)),
